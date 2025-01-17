@@ -1,5 +1,6 @@
 ﻿using eventLib.Dal;
 using eventLib.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -9,7 +10,7 @@ namespace WebApp.Controllers
 {
     public class PerformerManagementController : Controller
     {
-        // GET: PerformerController
+        [Authorize]
         public ActionResult Index(string? search = null)
         {
             PerformerVM performerVM = new PerformerVM();
@@ -18,14 +19,14 @@ namespace WebApp.Controllers
         }
 
 
-        // GET: PerformerController/Create
+        [Authorize]
         public ActionResult Create()
         {
 
             return View();
         }
 
-        // POST: PerformerController/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(PerformerVM performerVM)
@@ -41,7 +42,7 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: PerformerController/Edit/5
+        [Authorize]
         public ActionResult Edit(int idPerformer)
         {
             PerformerVM performerVM = new PerformerVM();
@@ -49,7 +50,7 @@ namespace WebApp.Controllers
             return View(performerVM);
         }
 
-        // POST: PerformerController/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PerformerVM value)
@@ -65,13 +66,14 @@ namespace WebApp.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Delete(int? idPerformer)
 
         {
             Performer value = RepoFactory.GetRepo().PerformerGet(idPerformer);
             return View(value);
         }
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int idPerformer)

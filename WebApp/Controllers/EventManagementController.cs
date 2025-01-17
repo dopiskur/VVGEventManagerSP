@@ -1,5 +1,6 @@
 ﻿using eventLib.Dal;
 using eventLib.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,7 +13,7 @@ namespace WebApp.Controllers
     {
 
 
-        // GET: EventController1
+        [Authorize]
         public ActionResult Index(string? search=null)
         {
             EventVM eventVM = new EventVM();
@@ -25,7 +26,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-        // GET: EventController1/Details/5
+        [Authorize]
         public ActionResult Details(int idEvent)
         {
             EventVM eventVM = new EventVM();
@@ -37,7 +38,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-        // GET: EventController1/Create
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -57,7 +58,7 @@ namespace WebApp.Controllers
             }
         }
 
-        // POST: EventController1/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(EventVM eventVM, IFormFile imageFile)
@@ -87,7 +88,7 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: EventController1/Edit/5
+        [Authorize]
         public ActionResult Edit(int idEvent)
         {
             EventVM eventVM = new EventVM();
@@ -101,7 +102,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-        // POST: EventController1/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EventVM eventVM, IFormFile imageFile)
@@ -131,7 +132,7 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: EventController1/Delete/5
+        [Authorize]
         public ActionResult Delete(int? idEvent)
 
         {
@@ -139,6 +140,7 @@ namespace WebApp.Controllers
             return View(value);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int idEvent)
@@ -155,7 +157,7 @@ namespace WebApp.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult EventPerformerDelete(int? eventID, int? performerID)
         {
             RepoFactory.GetRepo().EventPerformerDelete(eventID, performerID);
@@ -163,7 +165,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Edit", new { idEvent = eventID });
         }
 
-
+        [Authorize]
         public ActionResult EventPerformerAdd(int? eventID, string? search = null)
         {
             EventVM eventVM = new EventVM();
@@ -178,7 +180,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-        // POST: EventController1/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EventPerformerAdd(EventVM value)

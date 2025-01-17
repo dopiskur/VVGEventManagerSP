@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
@@ -44,7 +45,7 @@ namespace WebApp.Controllers
             }
         }
 
- 
+        [Authorize]
         public ActionResult Edit(int? idUser)
         {
             User user = RepoFactory.GetRepo().UserGet(idUser, null); 
@@ -63,7 +64,7 @@ namespace WebApp.Controllers
             return View(userVM);
         }
 
-        // POST: PerformerController/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserVM value)
@@ -99,12 +100,14 @@ namespace WebApp.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Delete(int? idUser)
 
         {
             User value = RepoFactory.GetRepo().UserGet(idUser, null);
             return View(value);
         }
+        [Authorize]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,7 +124,7 @@ namespace WebApp.Controllers
             }
         }
 
-
+        [Authorize]
         public ActionResult EditProfile()
         {
             string? username = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
@@ -151,7 +154,7 @@ namespace WebApp.Controllers
             return View(userVM);
         }
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(UserVM value)

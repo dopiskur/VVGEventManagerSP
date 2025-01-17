@@ -1,5 +1,6 @@
 ﻿using eventLib.Dal;
 using eventLib.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class EventsController : Controller
     {
         // GET: EventsController
@@ -23,7 +25,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-        // GET: EventsController/Details/5
+        [Authorize]
         public ActionResult Details(int? idEvent)
         {
             EventVM eventVM = new EventVM();
@@ -35,6 +37,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
+        [Authorize]
         public ActionResult MyEventsDetails(int? idEvent)
         {
             EventVM eventVM = new EventVM();
@@ -46,6 +49,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
+        [Authorize]
         public ActionResult Add(int? idEvent)
         {
             EventVM eventVM = new EventVM();
@@ -57,7 +61,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RegistrationConfirm(int? eventID)
@@ -84,7 +88,7 @@ namespace WebApp.Controllers
 
 
 
-
+        [Authorize]
         public ActionResult MyEvents(string? search = null)
         {
             EventVM eventVM = new EventVM();
@@ -99,7 +103,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
-
+        [Authorize]
         public ActionResult Remove(int? idEvent)
         {
             EventVM eventVM = new EventVM();
@@ -111,6 +115,7 @@ namespace WebApp.Controllers
             return View(eventVM);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RegistrationRemoveConfirm(int? eventID)
